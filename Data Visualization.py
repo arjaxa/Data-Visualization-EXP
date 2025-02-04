@@ -11,5 +11,4 @@ plt.title("Nominal GDP")
 
 # y-axis label
 plt.ylabel("Billions of $")
-#plt.show()
-#plt.close()
+plt.show()
