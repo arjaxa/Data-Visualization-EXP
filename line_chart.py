@@ -9,3 +9,4 @@ xs = [i for i, _ in enumerate(variance)]
 
 plt.plot(xs, variance, 'g-', label='variance') # green solid line
 plt.plot(xs, bias_squared, 'r-', label='bias^2') # red dot-dashed line
+plt.plot(xs, total_error, 'b-', label='total error') #
