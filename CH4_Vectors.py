@@ -1,4 +1,4 @@
-
+# Chapter 4 - Linear Algebra - Vectors
 from typing import List
 
 vector = list[float]
@@ -50,4 +50,16 @@ assert scalar_multiply(2, [1, 2, 3]) == [2, 4, 6]
 
 #4
 
-def
+def vector_mean(vectors: list[vector]) -> vector:
+    """computes the element-wise average"""
+    n == len(vectors)
+    return scalar_multiply(1/n, vector_sum(vectors))
+assert vector_mean([[1, 2], [3, 4], [5, 6]]) == [3, 4]
+
+# 5
+
+def dot(v: vector, w: vector) -> float:
+    """computes v_1 * w_1 + ... + v_n * w_n"""
+    assert len(v) == len(w), "vectors must be same lenght"
+    return sum(v_i * w_i for v_i, w_i in zip(v, w))
+assert dot([1, 2, 3], [4, 5, 6]) == 32 # 1 * 4 + 2 * 5 + 3 * 6
