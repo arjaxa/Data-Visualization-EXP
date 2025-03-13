@@ -2,6 +2,9 @@ import math
 
 SQRT_TWO_PI = math.sqrt(2 * math.pi)
 
+def normal_cdf(x: float, mu: float = 0, sigma: float = 1) -> float:
+    return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
+
 def bernoulli_trial(p: float) -> int:
     """returns 1 with probability p and 0 with probability 1-p"""
     return 1 if random.random() < p else 0
@@ -22,19 +25,18 @@ def binomial_histogram(p: float, n: int, num_points: int) -> None:
             [v / num_points for v in histogram.values()],
             0.8,
             color='0.75')
+    
+    mu = p * n
+    sigma = math.sqrt(n * p * (1-p))
+
+    # line chart to show the normal approximation
+    xs = range(min(data), max(data) + 1)
+    ys = [normal_cdf(i + 0.5, mu, sigma) - normal_cdf(i - 0.5, mu, sigma) for i in xs]
 
 import matplotlib.pyplot as plt
 
 xs = [x / 10.0 for x in range(-50, 50)]
 
-plt.plot(xs, [normal_cdf(x, sigma=1) for x in xs],'-', label='mu=0, sigma=1')
-
-plt.plot(xs, [normal_cdf(x, sigma=2) for x in xs], '-', label='mu=0, sigma=2')
-
-plt.plot(xs, [normal_cdf(x, sigma=0.5) for x in xs], ':', label='mu=0, sigma=0.5')
-
-plt.plot(xs, [normal_cdf(x, mu=-1) for x in xs], '-', label='mu=-1, sigma=1')
-
-plt.legend(loc=4) #buttom right
-plt.title("Various Normal cdfs")
+plt.plot(xs, ys)
+plt.title("Binomial Distribution vs. Normal Approximation")
 plt.show()
