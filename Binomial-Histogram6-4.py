@@ -1,4 +1,6 @@
 import math
+from collections import Counter
+import matplotlib.pyplot as plt
 
 SQRT_TWO_PI = math.sqrt(2 * math.pi)
 
@@ -12,8 +14,6 @@ def bernoulli_trial(p: float) -> int:
 def binomial(n: int, p: float) -> int:
     """returns the sum of n bernoulli(p) trials"""
     return sum(bernoulli_trial(p) for _ in range(n))
-
-from collections import Counter
 
 def binomial_histogram(p: float, n: int, num_points: int) -> None:
     """picks points from a binomial(n,p) and plots their histogram"""
@@ -33,10 +33,11 @@ def binomial_histogram(p: float, n: int, num_points: int) -> None:
     xs = range(min(data), max(data) + 1)
     ys = [normal_cdf(i + 0.5, mu, sigma) - normal_cdf(i - 0.5, mu, sigma) for i in xs]
 
-import matplotlib.pyplot as plt
 
 xs = [x / 10.0 for x in range(-50, 50)]
 
-plt.plot(xs, ys)
+plt.plot(xs,ys)
 plt.title("Binomial Distribution vs. Normal Approximation")
 plt.show()
+
+# o_O
