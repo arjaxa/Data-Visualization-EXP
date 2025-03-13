@@ -1,9 +1,14 @@
 import math
+
 SQRT_TWO_PI = math.sqrt(2 * math.pi)
 
 def bernoulli_trial(p: float) -> int:
     """returns 1 with probability p and 0 with probability 1-p"""
     return 1 if random.random() < p else 0
+
+def binomial(n: int, p: float) -> int:
+    """returns the sum of n bernoulli(p) trials"""
+    return sum(bernoulli_trial(p) for _ in range(n))
 
 import matplotlib.pyplot as plt
 
