@@ -1,9 +1,6 @@
 from typing import Callable
-import matplotlib.pyplot as plt
 
-def difference_qoutient(f: callable[[float], float],
-                        x: float,
-                        h: float) -> float:
+def difference_qoutient(f: Callable[[float], float], x: float, h: float) -> float:
     return (f(x + h) - f(x)) / h
 
 def square(x: float) -> float:
@@ -15,6 +12,8 @@ def derivative(x: float) -> float:
 xs = range(-10, 11)
 actuals = [derivative(x) for x in xs]
 estimates = [difference_qoutient(square, x, h=0.001) for x in xs]
+
+import matplotlib.pyplot as plt
 
 plt.title("Actual Derivatives vs. Estimates")
 plt.plot(xs, actuals, 'rx', label='Actual') #red x
