@@ -6,6 +6,9 @@ def difference_qoutient(f: callable[[float], float],
                         h: float) -> float:
     return (f(x + h) - f(x)) / h
 
+def square(x: float) -> float:
+    return x * x
+
 def derivative(x: float) -> float:
     return 2 * x
 
