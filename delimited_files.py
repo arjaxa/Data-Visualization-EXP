@@ -7,3 +7,5 @@ with open('tab_delimited_stock_prices.txt') as f:
         symbol = row[1]
         closing_price = float(row[2])
         process(date, symbol, closing_price)
+
+        
