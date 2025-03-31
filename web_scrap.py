@@ -24,3 +24,10 @@ paragraphs_with_ids = [p for p in soup('p') if p.get('id')]
 important_paragraphs = soup('p', {'class' : 'important'})
 important_paragraphs2 = soup('p', 'important')
 important_paragraphs3 = [p for p in soup('p') if 'important' in p.get('class', [])]
+
+# to find every <span> element inside a <div>
+
+# *will return the same <span> multiple times if it sits inside multiple <divs>
+
+spans_inside_divs = [span for div in soap('div') # for each div on the page
+                     for span in div('span')] # find each <span> inside it
