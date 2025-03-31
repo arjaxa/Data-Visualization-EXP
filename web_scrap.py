@@ -20,3 +20,7 @@ all_paragraphs = soup.find_all('p') # or just soap('p')
 paragraphs_with_ids = [p for p in soup('p') if p.get('id')]
 
 # getting tags with a specific class
+
+important_paragraphs = soup('p', {'class' : 'important'})
+important_paragraphs2 = soup('p', 'important')
+important_paragraphs3 = [p for p in soup('p') if 'important' in p.get('class', [])]
