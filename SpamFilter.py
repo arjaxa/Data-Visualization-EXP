@@ -49,4 +49,28 @@ class Message(NamedTuple):
             p_token_spam = (spam + self.k) / (self.spam_messages + 2 * self.k)
             p_token_ham = (ham + self.k) / (self.ham_messages + 2 * self.k)
 
-            return p_token_spam, p_token_ham                  
+            return p_token_spam, p_token_ham 
+
+        def predict(self, text: str) -> float:
+            text_tokens = tokenize(text)
+            log_prob_if_spam = log_prob_if_ham = 0.0
+
+            # iterate through each word in our vocab
+            for token in self.tokens:
+                prob_if_spam, prob_if_ham = self._probabilities(token)
+
+                # if *token* appears in the message
+                # add the log probability of seeing it
+                if token in text_tokens:
+                    log_prob_if_spam += math.log(prob_if_spam)
+                    log_prob_if_ham += math.log(prob_if_ham)
+
+                # otherwise add the log probability of _not_seeing it,
+                # which is log(1 - probability of seeing it)
+                else:
+                    log_prob_if_spam += math.log(1.0 - prob_if_spam)
+                    log_prob_if_ham += math.log(1.0 - prob_if_ham)
+                    prob_if_spam = math.exp(log_prob_if_spam)
+                    prob_if_ham = math.exp(log_prob_if_ham)
+
+                    return prob_if_spam / (prob_if_spam + prob_if_ham)                    
