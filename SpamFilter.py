@@ -24,3 +24,19 @@ class Message(NamedTuple):
             self.token_spam_counts: Dict[str, int] = defaultdict(int)
             self.token_ham_counts: Dict[str, int] = defaultdict(int)
             self.spam_messages = self.ham_messages = 0
+
+        def train(self, messages: Iterable[Message]) -> None:
+            for message in messages:
+                # increment message counts
+                if message.is_spam:
+                    self.spam_messages += 1
+                else:
+                    self.ham_messages += 1
+
+                # increment word counts
+            for token in tokenize(message.text):
+                self.tokens.add(token)
+                if message.is_spam:
+                    self.token_spam_counts[token] += 1
+                else:
+                    self.token_ham_counts[token] += 1             
