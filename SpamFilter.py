@@ -39,4 +39,14 @@ class Message(NamedTuple):
                 if message.is_spam:
                     self.token_spam_counts[token] += 1
                 else:
-                    self.token_ham_counts[token] += 1             
+                    self.token_ham_counts[token] += 1       
+
+        def _probabilities(self, token: str) -> Tuple[float, float]:
+            """returns p(token|spam) and p(token|ham)"""
+            spam = self.token_spam_counts[token]
+            ham = self.token_ham_counts[token]
+
+            p_token_spam = (spam + self.k) / (self.spam_messages + 2 * self.k)
+            p_token_ham = (ham + self.k) / (self.ham_messages + 2 * self.k)
+
+            return p_token_spam, p_token_ham                  
